@@ -1,3 +1,25 @@
 h1. jquery.stickybox
 
-This plugin is based on Remy Sharp's "Fixed Floating Elements":http://jqueryfordesigners.com/fixed-floating-elements/ snippet.
+This plugin is based on Remy Sharp's "Fixed Floating Elements":http://jqueryfordesigners.com/fixed-floating-elements/ snippet. See the index.html file for examples.
+
+h2. Usage
+
+General initialization:
+
+<pre>
+$(selector).stickybox(options);
+</pre>
+
+You can also dynamically remove the functionality of the plugin by calling the *destroy* method:
+
+<pre>
+$(selector).stickybox('destroy');
+</pre>
+
+
+h2. Options
+
+* fixedClass: 'fixed',    //  class applied when window has been scolled passed threshold
+* bottomClass: 'bottom',  //  class applied when stickybox element reaches bottom of context container
+* context: '#content'     //  unique container (should have position:relative;)
+

@@ -19,7 +19,7 @@
     #footer { background: #999; height:100px; }
     #main   { display: inline; float: left; width: 500px; outline: 1px dotted grey; }
     #sub    { display: inline; float: right; margin-left: 25px; width: 275px; outline: 1px dotted grey; }
-    #stickybox    { background: red; min-height: 500px; width: 275px; }
+    #stickybox    { background: red; min-height: 250px; padding: 20px 0; width: 275px; }
     
     .clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
     .clearfix:after { clear: both; }
@@ -33,10 +33,27 @@
 			$('#stickybox').stickybox();
 			
 			
-      // $('#add').click(function(){
-      //   var html = '<div class="bubbleInfo appended"><p class="cut trigger">+ $3.50 GS fee (appended)</p><div class="popup"><p>Appended via js. Gamestaq charges a small fee to each the buyer and the seller to keep things going.</p></div></div>';
-      //         $('.bubbleInfo:last').after( html )
-      // });
+			/* exmaple scripts */
+			$('#example1').click(function(){
+			  $('#stickybox').height( $(window).height() + 100 );
+			});
+			$('#example2').click(function(){
+			  $('#main p:gt(0)').hide();
+			  $('#stickybox').height( $('#main').height() + 200 );
+			});
+			$('#example3').click(function(){
+			  $('#footer').height(1000);
+			});
+			$('#example4').click(function(){
+			  $('#main p:hidden').show();
+			  $('#stickybox').height('auto');
+			  $('#footer').height(100);
+			});
+			$('#example5').click(function(){
+			  $('#stickybox').animate({
+			    height: '+=100px'
+			  });
+			});
 			
 		});
 	</script>
@@ -53,9 +70,17 @@
     <div id="content" class="clearfix">
       <div id="main">
       	<h1>jquery.stickybox</h1>
-    	
-        <!-- <button id="add">Add instance</button>
-        <button id="update">update $.stickybox()</button> -->
+    	  
+    	  
+    	  <h2>Responsive to the height of the page and the elements involved</h2>
+    	  
+    	  <ul>
+    	    <li><button id="example1">Make stickybox taller than page</button></li>
+    	    <li><button id="example2">Make stickybox taller main content area</button></li>
+    	    <li><button id="example3">Make footer massive</button></li>
+    	    <li><button id="example4">Normalize</button></li>
+    	    <li><button id="example5">Make stickybox taller</button></li>
+    	  </ul>
       
         <p>Suspendisse non justo quis nunc luctus pretium. Nullam feugiat neque non nulla rhoncus tincidunt. Praesent nec porta libero. Donec porta ultricies enim in tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac iaculis leo. Curabitur pellentesque orci eu odio malesuada in sagittis magna tristique. Praesent sodales purus nec nulla pulvinar volutpat. Vivamus id dapibus metus. Vestibulum est arcu, laoreet at gravida ut, ultricies in nisl. Vestibulum dignissim tempus diam, eget mollis velit sagittis non. Praesent malesuada turpis imperdiet orci ullamcorper dictum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Sed vulputate elit eget elit commodo adipiscing faucibus turpis porta.</p>
         <p>Donec condimentum ipsum in eros condimentum eu congue sem consectetur. Ut ac ante massa. Nam velit neque, faucibus id mollis et, condimentum eget orci. Donec urna purus, accumsan non congue eget, convallis vel felis. Vestibulum scelerisque, ipsum eget laoreet semper, enim odio congue lorem, vitae faucibus risus nisi ut neque. Quisque non ligula a odio pretium laoreet. Praesent dapibus accumsan sapien sit amet venenatis. Phasellus tempor euismod ante, nec lacinia nulla euismod at. Praesent quis est eu dolor ullamcorper lobortis. Proin et malesuada dui.</p>

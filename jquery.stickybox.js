@@ -3,10 +3,13 @@
  * http://github.com/elidupuis
  *
  * Copyright 2010, Eli Dupuis
- * Version: 0.1
+ * Version: 0.2
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://creativecommons.org/licenses/GPL/2.0/) licenses.
  * Requires: jQuery v1.4.4 or later
  * Based heavily on Remy Sharp's snippet at http://jqueryfordesigners.com/fixed-floating-elements/
+
+TODO: 
+-add essential css via plugin?
  */
 
 
@@ -17,52 +20,40 @@
       // iterate and reformat each matched element
     	return this.each(function() {
     		var $this = $(this),
-    		    opts = $.extend({}, $.fn.stickybox.defaults, options),
+    		    opts = $.extend( {}, $.fn.stickybox.defaults, options ),
             data = $this.data('stickybox');
 
         // If the plugin hasn't been initialized yet
         if ( ! data ) {
           
-          // do all your main awesomeness in here...
           var top = $this.offset().top - parseFloat($this.css('marginTop').replace(/auto/, 0));
-                        
-          if(window.console) window.console.log(top);
           
-          $(window).scroll(function (event) {
+          $(window).bind('scroll.stickybox resize.stickybox', function (event) {
             var y = $(this).scrollTop(),
                 height = $(window).height(),
                 docHeight = $(document).height(),
-                footerHeight = opts.context.call(this, $this).outerHeight() + 35, // 35 is content padding bottom (space between footer and content)
-                // bottomThreshold = docHeight - footerHeight - $(window).scrollTop();
-                bottomThreshold = $('#content').offset().top + $('#content').outerHeight() - $this.outerHeight();
-                
-                
-                if(window.console) window.console.log( 'footer top: ', $('#footer').offset().top, 'content bottom:', $('#content').offset().top + $('#content').outerHeight(), 'srcollTop:', y);
+                bottomThreshold = $(opts.context).offset().top + $(opts.context).outerHeight() - $this.outerHeight();
 
-
-
-            // if (height > 550) {
-              if (y+30 >= top) {
+            if ( height > $this.outerHeight() ) {
+              if (y >= top) {
                 $this.addClass( opts.fixedClass );
               } else {
                 $this.removeClass( opts.fixedClass );
               };
+              //  check for bottom of context
               if ( y > bottomThreshold ) {
-                if(window.console) window.console.log('bottom hit');
                 $this.addClass( opts.bottomClass );
               }else{
-                if(window.console) window.console.log('free fallin\'...');
                 $this.removeClass( opts.bottomClass );
               };
-              // if ( bottomThreshold < $('#gamecard').outerHeight() + 25 ) {
-              //   $('#gamecard').addClass('bottom');
-              // }else{
-              //   $('#gamecard').removeClass('bottom');
-              // };
+              
+              //  check height of contact vs height of stickybox:
+              if ( $this.outerHeight() > $(opts.context).outerHeight() ) {
+                $(opts.context).css('min-height', $this.outerHeight() );
+              };
 
-            // };
+            };
           });
-
 
           //  attach
           $(this).data('stickybox', {
@@ -73,10 +64,11 @@
         };
       });
     },
-    update: function() {
-      // each method must loop through all selected elements and return 'this'.
+    destroy: function() {
+      // loop through matched elements and un
       return this.each(function() {
-        if(window.console) window.console.log('update called.');
+        $(this).removeClass( $(this).data('stickybox').opts.fixedClass + ' ' + $(this).data('stickybox').opts.bottomClass );
+        $(window).unbind('.stickybox');
       });
     }
   };
@@ -94,11 +86,9 @@
 
   //	defaults
   $.fn.stickybox.defaults = {
-    fixedClass: 'fixed',
-    bottomClass: 'bottom',
-    context: function(elm){
-      return $('#content');
-    }
+    fixedClass: 'fixed',    //  class applied when window has been scolled passed threshold
+    bottomClass: 'bottom',  //  class applied when stickybox element reaches bottom of context container
+    context: '#content'     //  unique container (should have position:relative;)
   };
 
 })(jQuery);
