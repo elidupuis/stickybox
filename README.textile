@@ -1,0 +1,3 @@
+h1. jquery.stickybox
+
+This plugin is based on Remy Sharp's "Fixed Floating Elements":http://jqueryfordesigners.com/fixed-floating-elements/ snippet.
