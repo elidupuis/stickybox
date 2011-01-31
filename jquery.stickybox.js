@@ -3,7 +3,7 @@
  * http://github.com/elidupuis
  *
  * Copyright 2010, Eli Dupuis
- * Version: 0.2
+ * Version: 0.3
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://creativecommons.org/licenses/GPL/2.0/) licenses.
  * Requires: jQuery v1.4.4 or later
  * Based heavily on Remy Sharp's snippet at http://jqueryfordesigners.com/fixed-floating-elements/

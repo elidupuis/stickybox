@@ -21,5 +21,21 @@ h2. Options
 
 * fixedClass: 'fixed',    //  class applied when window has been scolled passed threshold
 * bottomClass: 'bottom',  //  class applied when stickybox element reaches bottom of context container
-* context: '#content'     //  unique container (should have position:relative;)
+* context: function(){}   //  unique container (should have position:relative;) returns 'body' by default.
 
+Your styles should be associated with the _fixedClass_ and _bottomClass_ classes. The required CSS follows:
+
+<pre>
+.fixed    { position: fixed; top: 0; }
+.bottom   { position: absolute; top: auto; bottom: 0; }
+</pre>
+
+The _context_ option is a function that should return a jquery object. It is passed the relevant stickybox as a parameter. In most instances you'll want to return one of it's closest parents. If you do not specify this option, the _body_ element is used.
+
+<pre>
+$('.stickybox').stickybox({
+    context: function(elm){
+        return elm.parents('.content');
+    }
+});
+</pre>
