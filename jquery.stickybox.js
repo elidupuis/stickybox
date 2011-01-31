@@ -9,6 +9,7 @@
  * Based heavily on Remy Sharp's snippet at http://jqueryfordesigners.com/fixed-floating-elements/
 
 TODO: 
+-add offset option (padding top for main element)
 -add essential css via plugin?
  */
 
@@ -32,7 +33,8 @@ TODO:
             var y = $(this).scrollTop(),
                 height = $(window).height(),
                 docHeight = $(document).height(),
-                bottomThreshold = $(opts.context).offset().top + $(opts.context).outerHeight() - $this.outerHeight();
+                context = opts.context.call(this, $this),
+                bottomThreshold = context.offset().top + context.outerHeight() - $this.outerHeight();
 
             if ( height > $this.outerHeight() ) {
               if (y >= top) {
@@ -47,9 +49,9 @@ TODO:
                 $this.removeClass( opts.bottomClass );
               };
               
-              //  check height of contact vs height of stickybox:
-              if ( $this.outerHeight() > $(opts.context).outerHeight() ) {
-                $(opts.context).css('min-height', $this.outerHeight() );
+              //  check height of context vs height of stickybox:
+              if ( $this.outerHeight() > context.outerHeight() ) {
+                context.css('min-height', $this.outerHeight() );
               };
 
             };
@@ -88,7 +90,7 @@ TODO:
   $.fn.stickybox.defaults = {
     fixedClass: 'fixed',    //  class applied when window has been scolled passed threshold
     bottomClass: 'bottom',  //  class applied when stickybox element reaches bottom of context container
-    context: '#content'     //  unique container (should have position:relative;)
+    context: function(){ return $('body'); }     //  unique container (should have position:relative;)
   };
 
 })(jQuery);
