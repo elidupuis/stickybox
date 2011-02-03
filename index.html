@@ -18,7 +18,7 @@
     #footer { background: #999; height:100px; }
     #main   { display: inline; float: left; width: 500px; outline: 1px dotted grey; }
     #sub    { display: inline; float: right; margin-left: 25px; width: 275px; outline: 1px dotted grey; }
-    #stickybox    { background: red; min-height: 250px; padding: 20px 0; width: 275px; }
+    #stickybox    { background: red; min-height: 250px; padding: 20px 0; /*margin: 30px 0;*/ width: 275px; }
     
     .clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
     .clearfix:after { clear: both; }
@@ -29,7 +29,11 @@
 	<script src="jquery.stickybox.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(function(){
-			$('#stickybox').stickybox();
+			$('#stickybox').stickybox({
+			  context: function(elm){
+			    return $('#content');
+			  }
+			});
 			
 			
 			/* exmaple scripts */

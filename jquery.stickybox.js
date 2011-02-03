@@ -3,7 +3,7 @@
  * http://github.com/elidupuis
  *
  * Copyright 2010, Eli Dupuis
- * Version: 0.3
+ * Version: 0.4
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://creativecommons.org/licenses/GPL/2.0/) licenses.
  * Requires: jQuery v1.4.4 or later
  * Based heavily on Remy Sharp's snippet at http://jqueryfordesigners.com/fixed-floating-elements/
@@ -34,11 +34,18 @@ TODO:
                 height = $(window).height(),
                 docHeight = $(document).height(),
                 context = opts.context.call(this, $this),
-                bottomThreshold = context.offset().top + context.outerHeight() - $this.outerHeight();
+                bottomThreshold = context.offset().top + context.outerHeight() - $this.outerHeight(true) - opts.offset;
+
+            if(window.console) window.console.log('top', top, 'y', y, 'bottomThreshold', bottomThreshold);
 
             if ( height > $this.outerHeight() ) {
-              if (y >= top) {
+              if ( y >= (top - opts.offset) ) {
                 $this.addClass( opts.fixedClass );
+                
+                if ( opts.offset > 0 ) {
+                  $this.css('top', opts.offset);
+                };
+                
               } else {
                 $this.removeClass( opts.fixedClass );
               };
@@ -90,7 +97,8 @@ TODO:
   $.fn.stickybox.defaults = {
     fixedClass: 'fixed',    //  class applied when window has been scolled passed threshold
     bottomClass: 'bottom',  //  class applied when stickybox element reaches bottom of context container
-    context: function(){ return $('body'); }     //  unique container (should have position:relative;)
+    context: function(){ return $('body'); },     //  unique container (should have position:relative;)
+    offset: 50               //  extra offset on the top of the element if required. (px) use css margin instead, if possible.
   };
 
 })(jQuery);
