@@ -22,6 +22,7 @@ h2. Options
 * fixedClass: 'fixed',    //  class applied when window has been scolled passed threshold
 * bottomClass: 'bottom',  //  class applied when stickybox element reaches bottom of context container
 * context: function(){}   //  unique container (should have position:relative;) returns 'body' by default.
+* offset: 0               // if your .fixed style has a top value other than 0, you'll need to set the same value here.
 
 Your styles should be associated with the _fixedClass_ and _bottomClass_ classes. The required CSS follows:
 
