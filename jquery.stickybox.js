@@ -9,7 +9,7 @@
  * Based heavily on Remy Sharp's snippet at http://jqueryfordesigners.com/fixed-floating-elements/
 
 TODO: 
--add offset option (padding top for main element)
+-add option for using outerHeight instead of just height (of context) to determine bottomThreshold...
 -add essential css via plugin?
  */
 
