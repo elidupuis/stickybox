@@ -41,18 +41,31 @@ TODO:
 
             if ( height > $this.outerHeight() ) {
               if ( y >= (top - opts.offset) ) {
-                $this.addClass( opts.fixedClass );
+                if (!$this.hasClass(opts.fixedClass)) {
+                  $this.addClass( opts.fixedClass );
+                  opts.captured.call();                  
+                };
+
                 // if ( !$this.data('stickybox').offsetTop ) {
                 //   $this.data('stickybox').offsetTop = parseInt($this.css('top')) || 0;                  
                 // };
               } else {
-                $this.removeClass( opts.fixedClass );
+                if ($this.hasClass(opts.fixedClass)) {
+                  $this.removeClass( opts.fixedClass );
+                  opts.released.call();
+                }
               };
               //  check for bottom of context
               if ( y > bottomThreshold ) {
-                $this.addClass( opts.bottomClass );
+                if (!$this.hasClass(opts.bottomClass)) {
+                  $this.addClass( opts.bottomClass );
+                  opts.bottomCaptured.call();                  
+                }
               }else{
-                $this.removeClass( opts.bottomClass );
+                if ($this.hasClass(opts.bottomClass)) {
+                  $this.removeClass( opts.bottomClass );
+                  opts.bottomReleased.call();
+                }
               };
               
               //  check height of context vs height of stickybox:
@@ -95,10 +108,14 @@ TODO:
 
   //	defaults
   $.fn.stickybox.defaults = {
-    fixedClass: 'fixed',    //  class applied when window has been scolled passed threshold
-    bottomClass: 'bottom',  //  class applied when stickybox element reaches bottom of context container
+    fixedClass: 'fixed',          //  class applied when window has been scolled passed threshold
+    bottomClass: 'bottom',        //  class applied when stickybox element reaches bottom of context container
     context: function(){ return $('body'); },     //  unique container (should have position:relative;)
-    offset: 0               // if your .fixed style has a top value other than 0, you'll need to set the same value here.
+    offset: 0,                    // if your .fixed style has a top value other than 0, you'll need to set the same value here.
+    captured: function(){},       // callback function for when fixedClass is applied
+    released: function(){},       // callback function for when fixedClass is removed
+    bottomCaptured: function(){}, // callback function for when bottomClass is applied
+    bottomReleased: function(){}  // callback function for when bottomClass is removed
   };
 
 })(jQuery);
