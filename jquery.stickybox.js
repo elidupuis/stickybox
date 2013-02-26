@@ -43,7 +43,7 @@ TODO:
               if ( y >= (top - opts.offset) ) {
                 if (!$this.hasClass(opts.fixedClass)) {
                   $this.addClass( opts.fixedClass );
-                  opts.captured.call();                  
+                  opts.captured.call(this, $this);                  
                 };
 
                 // if ( !$this.data('stickybox').offsetTop ) {
@@ -52,19 +52,19 @@ TODO:
               } else {
                 if ($this.hasClass(opts.fixedClass)) {
                   $this.removeClass( opts.fixedClass );
-                  opts.released.call();
+                  opts.released.call(this, $this);
                 }
               };
               //  check for bottom of context
               if ( y > bottomThreshold ) {
                 if (!$this.hasClass(opts.bottomClass)) {
                   $this.addClass( opts.bottomClass );
-                  opts.bottomCaptured.call();                  
+                  opts.bottomCaptured.call(this, $this);                  
                 }
               }else{
                 if ($this.hasClass(opts.bottomClass)) {
                   $this.removeClass( opts.bottomClass );
-                  opts.bottomReleased.call();
+                  opts.bottomReleased.call(this, $this);
                 }
               };
               
